@@ -71,5 +71,5 @@ class TestStore:
 
             inventory_data = response.json()
             assert isinstance(inventory_data, dict), "Ожидался формат словаря"
-            assert isinstance(inventory_data["approved"], int), "Значение 'approved' должно быть целым числом"
-            assert isinstance(inventory_data["delivered"], int), "Значение 'delivered' должно быть целым числом"
+            assert isinstance(inventory_data["approved"], int), "Значение "approved" должно быть целым числом"
+            assert isinstance(inventory_data["delivered"], int), "Значение "delivered" должно быть целым числом"
