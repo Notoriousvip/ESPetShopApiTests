@@ -1,5 +1,6 @@
 import requests
 import allure
+import pytest
 
 BASE_URL = "http://5.181.109.28:9090/api/v3"
 
@@ -23,14 +24,13 @@ class TestStore:
         with allure.step("Проверка статуса ответа"):
             assert response.status_code == 200, (f"Ожидался статус 200, а получен {response.status_code}")
 
-        with allure.step("Проверка данных в ответе"):
+        with (allure.step("Проверка данных в ответе")):
             assert response_json["id"] == payload["id"], "id заказа не совпадает"
             assert response_json["petId"] == payload["petId"], "petId не совпадает"
             assert response_json["quantity"] == payload["quantity"], "quantity не совпадает"
             assert response_json["status"] == payload["status"], "status не совпадает"
             assert response_json["complete"] == payload["complete"], "complete не совпадает"
 
-class TestStore:
     @allure.title("Получение информации о заказе по ID")
     def test_get_order(self):
         order_id = 1
@@ -43,7 +43,6 @@ class TestStore:
             assert response.status_code == 200, (f"Ошибка: ожидался статус 200, а получен {response.status_code}")
             assert response_json["id"] == order_id, "ID заказа не совпадает"
 
-class TestStore:
     @allure.title("Удаление заказа по ID")
     def test_delete_order(self):
         order_id = 1
@@ -56,7 +55,6 @@ class TestStore:
             response = requests.get(url=f"{BASE_URL}/store/order/{order_id}")
             assert response.status_code == 404, "Ожидался статус 404 после удаления заказа"
 
-class TestStore:
     @allure.title("Попытка получить информацию о несуществующем заказе")
     def test_get_nonexistent_order(self):
         order_id = 9999
@@ -65,7 +63,6 @@ class TestStore:
             response = requests.get(url=f"{BASE_URL}/store/order/{order_id}")
             assert response.status_code == 404, "Ожидался статус 404"
 
-class TestStore:
     @allure.title("Получение инвентаря магазина")
     def test_get_inventory(self):
         with allure.step("Отправка запроса на получение инвентаря магазина"):
